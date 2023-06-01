@@ -59,12 +59,11 @@ public class AnimaisController {
         byte[] imagensBytes = baos.toByteArray();
 
         // Atribuir o array de bytes ao atributo imagens da entidade Animais
-        //animal.setImagens(imagensBytes);
+        //
 
         Animais animal = new Animais(animaisDTO.getId(), animaisDTO.getNome(), animaisDTO.getSexo(),
                 animaisDTO.getEspecie(), animaisDTO.getDescricao(), animaisDTO.getRaca(), animaisDTO.getCidade(), animaisDTO.getIdade(), imagensBytes, new ArrayList<>());
-
-        animal = animaisService.inserirAnimal(animal);
+        animal = animaisService.inserirAnimal(animal, imagens);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(animaisDTO);
 

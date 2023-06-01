@@ -1,10 +1,12 @@
 package com.org.girapets.girapets.services;
 
 import com.org.girapets.girapets.model.Animais;
+import com.org.girapets.girapets.model.AnimalImagem;
 import com.org.girapets.girapets.model.Usuarios;
 import com.org.girapets.girapets.repository.AnimaisRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -26,10 +28,25 @@ public class AnimaisService {
         return animaisRepository.findById(id).orElseThrow();
     }
 
-    public Animais inserirAnimal(Animais animais){
+    public Animais inserirAnimal(Animais animais, MultipartFile[] imagens){
+        tratarImagens(imagens,animais);
         return animaisRepository.save(animais);
     }
+    private List<AnimalImagem> tratarImagens(MultipartFile[] imagens, Animais animal){
+        for(MultipartFile imagem: imagens){
+            try{
+                AnimalImagem animalImagem = new AnimalImagem();
+                animalImagem.setAnimal_id(animal);
+                animalImagem.setUrl(imagem.getBytes());
+                animal.getImagens().add(animalImagem);
+            }catch (Exception e){
+                throw new RuntimeException("Erro ao extrair bytes da imagem");
+            }
 
+        }
+
+        return null;
+    }
     public Animais atualizarAnimal(Long id, Animais animaisAtualizados) {
         Animais animalExistente = animaisRepository.findById(id).orElseThrow();
 
