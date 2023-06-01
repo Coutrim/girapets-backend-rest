@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,8 +41,36 @@ public class AnimaisController {
     }
 
 
+    @PostMapping(value = "/animais", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<AnimaisDTO> adicionarAnimal(@RequestPart("animal") AnimaisDTO animaisDTO,
+                                                      @RequestPart("imagem") MultipartFile[] imagens) {
+        // ...
 
+        // Converter a lista de bytes das imagens em um único array de bytes
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        for (MultipartFile imagem : imagens) {
+            try {
+                baos.write(imagem.getBytes());
+            } catch (IOException e) {
+                // Lida com a exceção de forma apropriada
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
+        }
+        byte[] imagensBytes = baos.toByteArray();
 
+        // Atribuir o array de bytes ao atributo imagens da entidade Animais
+        //animal.setImagens(imagensBytes);
+
+        Animais animal = new Animais(animaisDTO.getId(), animaisDTO.getNome(), animaisDTO.getSexo(),
+                animaisDTO.getEspecie(), animaisDTO.getDescricao(), animaisDTO.getRaca(), animaisDTO.getCidade(), animaisDTO.getIdade(), imagensBytes);
+
+        animal = animaisService.inserirAnimal(animal);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(animaisDTO);
+
+    }
+
+/*
     @PostMapping(value = "/animais", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<AnimaisDTO> adicionarAnimal(@RequestPart("animal") AnimaisDTO animaisDTO,
                                                       @RequestParam("imagem") MultipartFile imagem) {
@@ -61,7 +90,7 @@ public class AnimaisController {
         return ResponseEntity.status(HttpStatus.CREATED).body(animaisDTO);
 
     }
-
+*/
 
     @PutMapping(value = "/animais/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<AnimaisDTO> atualizarAnimal(@PathVariable("id") Long id, @RequestPart("animal") AnimaisDTO animaisDTO,

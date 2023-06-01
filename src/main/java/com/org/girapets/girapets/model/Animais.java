@@ -1,6 +1,8 @@
 package com.org.girapets.girapets.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "TB_ANIMAIS")
@@ -35,6 +37,19 @@ public class Animais {
     @Lob
     @Column(name = "imagem")
     private byte[] imagem;
+
+
+
+    /*
+    @ElementCollection
+    @CollectionTable(name = "tb_animais_imagens", joinColumns = @JoinColumn(name = "animal_id"))
+    @Column(name = "url")
+    private List<String> imagens = new ArrayList<>();
+*/
+
+
+
+
 
     public String getRaca() {
         return raca;
