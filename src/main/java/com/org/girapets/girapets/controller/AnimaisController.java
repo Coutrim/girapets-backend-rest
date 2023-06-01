@@ -62,7 +62,7 @@ public class AnimaisController {
         //animal.setImagens(imagensBytes);
 
         Animais animal = new Animais(animaisDTO.getId(), animaisDTO.getNome(), animaisDTO.getSexo(),
-                animaisDTO.getEspecie(), animaisDTO.getDescricao(), animaisDTO.getRaca(), animaisDTO.getCidade(), animaisDTO.getIdade(), imagensBytes);
+                animaisDTO.getEspecie(), animaisDTO.getDescricao(), animaisDTO.getRaca(), animaisDTO.getCidade(), animaisDTO.getIdade(), imagensBytes, new ArrayList<>());
 
         animal = animaisService.inserirAnimal(animal);
 

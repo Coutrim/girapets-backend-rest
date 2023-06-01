@@ -38,18 +38,16 @@ public class Animais {
     @Column(name = "imagem")
     private byte[] imagem;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "animal_id",orphanRemoval = true)
+    private List<AnimalImagem> imagens = new ArrayList<>();
 
+    public List<AnimalImagem> getImagens() {
+        return imagens;
+    }
 
-    /*
-    @ElementCollection
-    @CollectionTable(name = "tb_animais_imagens", joinColumns = @JoinColumn(name = "animal_id"))
-    @Column(name = "url")
-    private List<String> imagens = new ArrayList<>();
-*/
-
-
-
-
+    public void setImagens(List<AnimalImagem> imagens) {
+        this.imagens = imagens;
+    }
 
     public String getRaca() {
         return raca;
@@ -83,7 +81,7 @@ public class Animais {
         this.imagem = imagem;
     }
 
-    public Animais(Long id, String nome, String sexo, String especie, String descricao, String raca, String cidade, Double idade, byte[] imagem) {
+    public Animais(Long id, String nome, String sexo, String especie, String descricao, String raca, String cidade, Double idade, byte[] imagem,List<AnimalImagem>imagens) {
         this.id = id;
         this.nome = nome;
         this.sexo = sexo;
@@ -93,6 +91,7 @@ public class Animais {
         this.cidade = cidade;
         this.idade = idade;
         this.imagem = imagem;
+        this.imagens = imagens;
     }
 
     public Animais() {

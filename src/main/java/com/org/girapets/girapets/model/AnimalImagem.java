@@ -1,5 +1,6 @@
 package com.org.girapets.girapets.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
@@ -12,9 +13,10 @@ public class AnimalImagem {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "animal_id")
-    private int animal_id;
-
+    @ManyToOne
+    @JoinColumn(name = "animal_id")
+    @JsonIgnore
+    private Animais animal_id;
 
     @JoinColumn(name = "animal_nome")
     private String animal_nome;
@@ -39,11 +41,11 @@ public class AnimalImagem {
         this.id = id;
     }
 
-    public int getAnimal_id() {
+    public Animais getAnimal_id() {
         return animal_id;
     }
 
-    public void setAnimal_id(int animal_id) {
+    public void setAnimal_id(Animais animal_id) {
         this.animal_id = animal_id;
     }
 
