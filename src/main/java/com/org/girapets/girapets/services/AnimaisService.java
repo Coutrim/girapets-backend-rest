@@ -64,6 +64,19 @@ public class AnimaisService {
         atualizarImagens(imagens, animalExistente,animalAlterado);
         return animaisRepository.save(animalExistente);
     }
+    public Animais atualizarAnimalSemImagem(Long id, AnimaisDTO animaisDTO) {
+        Animais animalExistente = animaisRepository.findById(id).orElseThrow();
+
+        animalExistente.setNome(animaisDTO.getNome());
+        animalExistente.setEspecie(animaisDTO.getEspecie());
+        animalExistente.setDescricao(animaisDTO.getDescricao());
+        animalExistente.setSexo(animaisDTO.getSexo());
+        animalExistente.setRaca(animaisDTO.getRaca());
+        animalExistente.setCidade(animaisDTO.getCidade());
+        animalExistente.setIdade(animaisDTO.getIdade());
+
+        return animaisRepository.save(animalExistente);
+    }
     private void atualizarImagens(MultipartFile[] imagens, Animais animal, Animais animalAlterado){
 
         animal.getImagens().forEach(i->{
