@@ -18,7 +18,7 @@ public class AnimalImagem {
     @JsonIgnore
     private Animais animal_id;
 
-    @JoinColumn(name = "animal_nome")
+    @Column(name = "animal_nome")
     private String animal_nome;
 
     public String getAnimal_nome() {
