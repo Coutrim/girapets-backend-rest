@@ -1,5 +1,8 @@
 package com.org.girapets.girapets.model;
 
+import com.org.girapets.girapets.dto.AnimaisDTO;
+import com.org.girapets.girapets.dto.ImagensDTO;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +43,10 @@ public class Animais {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "animal_id",orphanRemoval = true)
     private List<AnimalImagem> imagens = new ArrayList<>();
+
+    public Animais(Long id, String nome, String sexo, String especie, String descricao, String raca, String cidade, Double idade) {
+    }
+
 
     public List<AnimalImagem> getImagens() {
         return imagens;
@@ -92,6 +99,27 @@ public class Animais {
         this.idade = idade;
         this.imagem = imagem;
         this.imagens = imagens;
+    }
+    public Animais(Long id, String nome, String sexo, String especie, String descricao, String raca, String cidade, Double idade,List<ImagensDTO>imagens) {
+        this.id = id;
+        this.nome = nome;
+        this.sexo = sexo;
+        this.especie = especie;
+        this.descricao = descricao;
+        this.raca = raca;
+        this.cidade = cidade;
+        this.idade = idade;
+        this.imagens = new ArrayList<>();
+        for(ImagensDTO imagem:imagens ){
+            AnimalImagem imagemDTO = new AnimalImagem();
+            imagemDTO.setUrl(imagem.getUrl());
+            imagemDTO.setId(imagem.getId());
+            imagemDTO.setAnimal_nome(imagem.getAnimal_nome());
+            Animais animaisDTO = new Animais();
+            animaisDTO.setId(id);
+            imagemDTO.setAnimal_id(animaisDTO);
+            this.imagens.add(imagemDTO);
+        }
     }
 
     public Animais() {

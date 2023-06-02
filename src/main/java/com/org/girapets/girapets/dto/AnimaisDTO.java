@@ -1,6 +1,10 @@
 package com.org.girapets.girapets.dto;
 
 
+import com.org.girapets.girapets.model.AnimalImagem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AnimaisDTO {
 
@@ -13,9 +17,11 @@ public class AnimaisDTO {
     private String raca;
     private String cidade;
     private Double idade;
-    private byte[] imagem;
+    private List<ImagensDTO> imagens;
+    public AnimaisDTO(){
 
-    public AnimaisDTO(Long id, String nome, String sexo, String especie, String descricao, String raca, String cidade, Double idade, byte[] imagem) {
+    }
+    public AnimaisDTO(Long id, String nome, String sexo, String especie, String descricao, String raca, String cidade, Double idade, List<AnimalImagem> imagens) {
         this.id = id;
         this.nome = nome;
         this.sexo = sexo;
@@ -24,7 +30,25 @@ public class AnimaisDTO {
         this.raca = raca;
         this.cidade = cidade;
         this.idade = idade;
-        this.imagem = imagem;
+        this.imagens = new ArrayList<>();
+        for(AnimalImagem imagem:imagens ){
+            ImagensDTO imagemDTO = new ImagensDTO();
+            imagemDTO.setUrl(imagem.getUrl());
+            imagemDTO.setId(imagem.getId());
+            imagemDTO.setAnimal_nome(imagem.getAnimal_nome());
+            AnimaisDTO animaisDTO = new AnimaisDTO();
+            animaisDTO.setId(id);
+            imagemDTO.setAnimal_id(animaisDTO);
+            this.imagens.add(imagemDTO);
+        }
+    }
+
+    public List<ImagensDTO> getImagens() {
+        return imagens;
+    }
+
+    public void setImagens(List<ImagensDTO> imagens) {
+        this.imagens = imagens;
     }
 
     public String getRaca() {
@@ -51,13 +75,7 @@ public class AnimaisDTO {
         this.idade = idade;
     }
 
-    public byte[] getImagem() {
-        return imagem;
-    }
 
-    public void setImagem(byte[] imagem) {
-        this.imagem = imagem;
-    }
 
     public Long getId() {
         return id;

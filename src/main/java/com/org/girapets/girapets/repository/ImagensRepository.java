@@ -8,9 +8,9 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface AnimalImagemRepository extends JpaRepository<AnimalImagem, Long> {
+public interface ImagensRepository extends JpaRepository<AnimalImagem, Long> {
 
-    @Query("SELECT ai FROM AnimalImagem ai WHERE ai.animal_nome = :animalNome")
-    List<AnimalImagem> findByAnimalNome(@Param("animalNome") String animalNome);
+    @Query("SELECT ai FROM AnimalImagem ai WHERE ai.animal_id = :id")
+    List<AnimalImagem> findAnimalById(@Param("id") Long id);
 }
 
