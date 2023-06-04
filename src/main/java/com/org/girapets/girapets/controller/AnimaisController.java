@@ -40,6 +40,12 @@ public class AnimaisController {
         return ResponseEntity.ok(animaisDTO);
     }
 
+    @GetMapping("/animais/{id}")
+    public ResponseEntity<AnimaisDTO> recuperarPorId(@PathVariable("id") Long id){
+        Animais animal = animaisService.buscarPorId(id);
+        AnimaisDTO animalDTO = new AnimaisDTO(animal);
+        return ResponseEntity.status(HttpStatus.OK).body(animalDTO);
+    }
 
     @PostMapping(value = "/animais", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<AnimaisDTO> adicionarAnimal(@RequestPart("animal") AnimaisDTO animaisDTO,

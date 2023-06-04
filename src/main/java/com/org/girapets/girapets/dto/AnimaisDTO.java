@@ -1,6 +1,7 @@
 package com.org.girapets.girapets.dto;
 
 
+import com.org.girapets.girapets.model.Animais;
 import com.org.girapets.girapets.model.AnimalImagem;
 
 import java.util.ArrayList;
@@ -40,6 +41,29 @@ public class AnimaisDTO {
             animaisDTO.setId(id);
             imagemDTO.setAnimal_id(animaisDTO);
             this.imagens.add(imagemDTO);
+        }
+    }
+    public AnimaisDTO(Animais animais) {
+        this.id = animais.getId();
+        this.nome = animais.getNome();
+        this.sexo = animais.getSexo();
+        this.especie = animais.getEspecie();
+        this.descricao = animais.getDescricao();
+        this.raca = animais.getRaca();
+        this.cidade = animais.getCidade();
+        this.idade = animais.getIdade();
+        this.imagens = new ArrayList<>();
+        if(animais.getImagens() != null && !animais.getImagens().isEmpty()){
+            for(AnimalImagem imagem:animais.getImagens()){
+                ImagensDTO imagemDTO = new ImagensDTO();
+                imagemDTO.setUrl(imagem.getUrl());
+                imagemDTO.setId(imagem.getId());
+                imagemDTO.setAnimal_nome(imagem.getAnimal_nome());
+                AnimaisDTO animaisDTO = new AnimaisDTO();
+                animaisDTO.setId(id);
+                imagemDTO.setAnimal_id(animaisDTO);
+                this.imagens.add(imagemDTO);
+            }
         }
     }
 
