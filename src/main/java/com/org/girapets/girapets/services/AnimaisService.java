@@ -3,13 +3,11 @@ package com.org.girapets.girapets.services;
 import com.org.girapets.girapets.dto.AnimaisDTO;
 import com.org.girapets.girapets.model.Animais;
 import com.org.girapets.girapets.model.AnimalImagem;
-import com.org.girapets.girapets.model.Usuarios;
 import com.org.girapets.girapets.repository.AnimaisRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,10 +29,10 @@ public class AnimaisService {
     }
 
     public Animais inserirAnimal(Animais animais, MultipartFile[] imagens){
-        tratarImagens(imagens,animais);
+        adicionarNovasFotos(imagens,animais);
         return animaisRepository.save(animais);
     }
-    private List<AnimalImagem> tratarImagens(MultipartFile[] imagens, Animais animal){
+    private void adicionarNovasFotos(MultipartFile[] imagens, Animais animal){
         for(MultipartFile imagem: imagens){
             try{
                 AnimalImagem animalImagem = new AnimalImagem();
@@ -46,8 +44,6 @@ public class AnimaisService {
             }
 
         }
-
-        return null;
     }
     public Animais atualizarAnimal(Long id, AnimaisDTO animaisDTO,MultipartFile[] imagens) {
         Animais animalAlterado = new Animais(animaisDTO.getId(), animaisDTO.getNome(), animaisDTO.getSexo(),
@@ -64,34 +60,13 @@ public class AnimaisService {
         atualizarImagens(imagens, animalExistente,animalAlterado);
         return animaisRepository.save(animalExistente);
     }
-    public Animais atualizarAnimalSemImagem(Long id, AnimaisDTO animaisDTO) {
-        Animais animalExistente = animaisRepository.findById(id).orElseThrow();
-
-        animalExistente.setNome(animaisDTO.getNome());
-        animalExistente.setEspecie(animaisDTO.getEspecie());
-        animalExistente.setDescricao(animaisDTO.getDescricao());
-        animalExistente.setSexo(animaisDTO.getSexo());
-        animalExistente.setRaca(animaisDTO.getRaca());
-        animalExistente.setCidade(animaisDTO.getCidade());
-        animalExistente.setIdade(animaisDTO.getIdade());
-
-        return animaisRepository.save(animalExistente);
-    }
     private void atualizarImagens(MultipartFile[] imagens, Animais animal, Animais animalAlterado){
-
         animal.getImagens().forEach(i->{
             i.setAnimal_id(null);
         });
         animal.getImagens().clear();
-        for(MultipartFile imagem: imagens){
-            try{
-                AnimalImagem animalImagem = new AnimalImagem();
-                animalImagem.setAnimal_id(animal);
-                animalImagem.setUrl(imagem.getBytes());
-                animal.getImagens().add(animalImagem);
-            }catch (Exception e){
-                throw new RuntimeException("Erro ao extrair bytes da imagem");
-            }
+        if(imagens != null){
+            adicionarNovasFotos(imagens,animal);
         }
         animal.getImagens().addAll(animalAlterado.getImagens());
     }

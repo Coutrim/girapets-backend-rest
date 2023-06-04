@@ -73,16 +73,7 @@ public class AnimaisController {
     @PutMapping(value = "/animais/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<AnimaisDTO> atualizarAnimal(@PathVariable("id") Long id, @RequestPart("animal") AnimaisDTO animaisDTO,
                                                       @RequestPart(name = "imagem", required = false) MultipartFile[] imagem) {
-
-        if (imagem == null){
-            animaisService.atualizarAnimalSemImagem(id, animaisDTO);
-        }
-        else{
-            animaisService.atualizarAnimal(id, animaisDTO,imagem);
-        }
-
-
-
+        animaisService.atualizarAnimal(id, animaisDTO,imagem);
         return ResponseEntity.ok(animaisDTO);
     }
 
