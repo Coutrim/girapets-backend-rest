@@ -13,6 +13,7 @@ public class CorsConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 //.allowedOrigins("http://localhost:4200")
                 .allowedOrigins("https://gira-pets.netlify.app/")
+                .allowedOrigins("http://localhost:4200")
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .allowedHeaders("*");
 
