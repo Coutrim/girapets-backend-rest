@@ -14,7 +14,6 @@ public class CorsConfig implements WebMvcConfigurer {
                 //.allowedOrigins("http://localhost:4200")
               //  .allowedOrigins("https://gira-pets.netlify.app/")
                 .allowedOrigins("*")
-                .allowedOrigins("http://localhost:4200")
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .allowedHeaders("*");
 
