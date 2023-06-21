@@ -60,38 +60,7 @@ public class ImagensController {
         return ResponseEntity.ok(imagens);
     }
 
-    /*
-    @PutMapping(value = "/imagens/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<String> atualizarImagem(@PathVariable("id") Long id,  @RequestPart("imagens") MultipartFile imagens) {
 
-        Optional<AnimalImagem> imagemExistente = imagensRepository.findById(id);
-
-        if (imagemExistente.isPresent()) {
-            byte[] imagemBytes;
-            try {
-                imagemBytes = imagens.getBytes();
-            } catch (IOException e) {
-                // Lida com a exceção de forma apropriada
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-            }
-
-            AnimalImagem imagem = imagemExistente.get();
-
-            ImagensDTO imagensDTO = new ImagensDTO();
-
-            imagensDTO.setUrl(imagemBytes);
-            imagensDTO.setAnimal_id(id);
-
-            imagem.setUrl(imagensDTO.getUrl());
-            imagem.setAnimal_id(imagensDTO.getAnimal_id());
-
-            imagensRepository.save(imagem);
-            return ResponseEntity.ok("Imagem atualizada com sucesso.");
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-*/
     @DeleteMapping("/imagens/{id}")
     public ResponseEntity<String> deletarImagem(@PathVariable("id") Long id) {
 

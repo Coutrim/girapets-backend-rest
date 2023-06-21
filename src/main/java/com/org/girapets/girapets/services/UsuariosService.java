@@ -40,7 +40,7 @@ public class UsuariosService {
     public Usuarios atualizarUsuarios(Long id, Usuarios usuariosAtualizados) {
         Usuarios usuariosExistente = usuariosRepository.findById(id).orElseThrow();
 
-        usuariosExistente.setName(usuariosAtualizados.getName());
+        usuariosExistente.setLogin(usuariosAtualizados.getLogin());
         usuariosExistente.setEmail(usuariosAtualizados.getEmail());
 
         return usuariosRepository.save(usuariosExistente);

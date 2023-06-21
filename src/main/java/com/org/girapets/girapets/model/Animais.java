@@ -2,6 +2,7 @@ package com.org.girapets.girapets.model;
 
 import com.org.girapets.girapets.dto.AnimaisDTO;
 import com.org.girapets.girapets.dto.ImagensDTO;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -48,10 +49,12 @@ public class Animais {
     }
 
 
+    @Transactional
     public List<AnimalImagem> getImagens() {
         return imagens;
     }
 
+    @Transactional
     public void setImagens(List<AnimalImagem> imagens) {
         this.imagens = imagens;
     }
@@ -100,6 +103,8 @@ public class Animais {
         this.imagem = imagem;
         this.imagens = imagens;
     }
+
+
     public Animais(Long id, String nome, String sexo, String especie, String descricao, String raca, String cidade, Double idade,List<ImagensDTO>imagens) {
         this.id = id;
         this.nome = nome;

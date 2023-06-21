@@ -33,7 +33,7 @@ public class UsuariosController {
         List<UsuariosDTO> usuariosDTO = new ArrayList<>();
 
         for (Usuarios usuario : usuarios) {
-            UsuariosDTO usuarioDTO = new UsuariosDTO(usuario.getId(), usuario.getName(), usuario.getEmail(), usuario.getSenha());
+            UsuariosDTO usuarioDTO = new UsuariosDTO(usuario.getId(), usuario.getLogin(), usuario.getEmail(), usuario.getPassword());
             usuariosDTO.add(usuarioDTO);
         }
 
@@ -48,7 +48,7 @@ public class UsuariosController {
             return ResponseEntity.notFound().build();
         }
 
-        UsuariosDTO usuarioDTO = new UsuariosDTO(usuario.getId(), usuario.getName(), usuario.getEmail(), usuario.getSenha());
+        UsuariosDTO usuarioDTO = new UsuariosDTO(usuario.getId(), usuario.getLogin(), usuario.getEmail(), usuario.getPassword());
         return ResponseEntity.ok(usuarioDTO);
     }
 
@@ -73,7 +73,7 @@ public class UsuariosController {
             return ResponseEntity.notFound().build();
         }
 
-        usuarioExistente.setName(usuarioDTO.getNome());
+        usuarioExistente.setLogin(usuarioDTO.getNome());
         usuarioExistente.setEmail(usuarioDTO.getEmail());
         usuariosService.atualizarUsuarios(id, usuarioExistente);
 

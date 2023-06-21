@@ -3,10 +3,12 @@ package com.org.girapets.girapets.dto;
 
 import com.org.girapets.girapets.model.Animais;
 import com.org.girapets.girapets.model.AnimalImagem;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Transactional
 public class AnimaisDTO {
 
 

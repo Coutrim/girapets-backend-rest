@@ -4,8 +4,10 @@ import com.org.girapets.girapets.dto.AnimaisDTO;
 import com.org.girapets.girapets.model.Animais;
 import com.org.girapets.girapets.model.AnimalImagem;
 import com.org.girapets.girapets.repository.AnimaisRepository;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.lang.reflect.Field;
@@ -13,7 +15,7 @@ import java.lang.reflect.Modifier;
 import java.util.List;
 
 @Service
-
+@Transactional
 public class AnimaisService {
     private final AnimaisRepository animaisRepository;
 
@@ -23,11 +25,15 @@ public class AnimaisService {
     }
 
     public List<Animais> listarAnimais(){
-        return animaisRepository.findAll();
+        List<Animais> animais = animaisRepository.findAll();
+        animais.forEach(animal -> Hibernate.initialize(animal.getImagens()));
+        return animais;
     }
 
     public Animais buscarPorId(Long id){
-        return animaisRepository.findById(id).orElseThrow();
+        Animais animal = animaisRepository.findById(id).orElseThrow();
+        Hibernate.initialize(animal.getImagens());
+        return animal;
     }
 
     public Animais inserirAnimal(Animais animais, MultipartFile[] imagens){
