@@ -25,7 +25,7 @@ public class TokenService {
     public String gerarToken(Usuarios usuario) {
 
         ZonedDateTime expirationTime = ZonedDateTime.now()
-                .plusDays(2)
+                .plusHours(3)
                 .withZoneSameInstant(ZoneId.of("America/Sao_Paulo"));
 
         return JWT.create()

@@ -36,7 +36,7 @@ public class Animais {
     private String cidade;
 
     @Column(name = "idade")
-    private Double idade;
+    private String idade;
 
     @Lob
     @Column(name = "imagem")
@@ -45,8 +45,9 @@ public class Animais {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "animal_id",orphanRemoval = true)
     private List<AnimalImagem> imagens = new ArrayList<>();
 
-    public Animais(Long id, String nome, String sexo, String especie, String descricao, String raca, String cidade, Double idade) {
+    public Animais(Long id, String nome, String sexo, String especie, String descricao, String raca, String cidade, String idade) {
     }
+
 
 
     @Transactional
@@ -75,11 +76,11 @@ public class Animais {
         this.cidade = cidade;
     }
 
-    public Double getIdade() {
+    public String getIdade() {
         return idade;
     }
 
-    public void setIdade(Double idade) {
+    public void setIdade(String idade) {
         this.idade = idade;
     }
 
@@ -91,7 +92,7 @@ public class Animais {
         this.imagem = imagem;
     }
 
-    public Animais(Long id, String nome, String sexo, String especie, String descricao, String raca, String cidade, Double idade, byte[] imagem,List<AnimalImagem>imagens) {
+    public Animais(Long id, String nome, String sexo, String especie, String descricao, String raca, String cidade, String idade, byte[] imagem,List<AnimalImagem>imagens) {
         this.id = id;
         this.nome = nome;
         this.sexo = sexo;
@@ -105,7 +106,7 @@ public class Animais {
     }
 
 
-    public Animais(Long id, String nome, String sexo, String especie, String descricao, String raca, String cidade, Double idade,List<ImagensDTO>imagens) {
+    public Animais(Long id, String nome, String sexo, String especie, String descricao, String raca, String cidade, String idade,List<ImagensDTO>imagens) {
         this.id = id;
         this.nome = nome;
         this.sexo = sexo;

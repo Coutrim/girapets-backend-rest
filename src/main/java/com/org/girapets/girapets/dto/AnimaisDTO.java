@@ -19,12 +19,12 @@ public class AnimaisDTO {
     private String descricao;
     private String raca;
     private String cidade;
-    private Double idade;
+    private String idade;
     private List<ImagensDTO> imagens;
     public AnimaisDTO(){
 
     }
-    public AnimaisDTO(Long id, String nome, String sexo, String especie, String descricao, String raca, String cidade, Double idade, List<AnimalImagem> imagens) {
+    public AnimaisDTO(Long id, String nome, String sexo, String especie, String descricao, String raca, String cidade, String idade, List<AnimalImagem> imagens) {
         this.id = id;
         this.nome = nome;
         this.sexo = sexo;
@@ -69,6 +69,8 @@ public class AnimaisDTO {
         }
     }
 
+
+
     public List<ImagensDTO> getImagens() {
         return imagens;
     }
@@ -93,11 +95,11 @@ public class AnimaisDTO {
         this.cidade = cidade;
     }
 
-    public Double getIdade() {
+    public String getIdade() {
         return idade;
     }
 
-    public void setIdade(Double idade) {
+    public void setIdade(String idade) {
         this.idade = idade;
     }
 
